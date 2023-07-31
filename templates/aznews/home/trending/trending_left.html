@@ -1,0 +1,32 @@
+{% load static %}
+<div class="col-lg-8">
+     <!-- Trending Top -->
+     <div class="trending-top mb-30">
+         <div class="trend-top-img">
+             <img src="{{ featured_post.feature_image.url }}" alt="{{ featured_post.title}}">
+             <div class="trend-top-cap">
+                 <span>{{featured_post.category.name}}</span>
+                 <h2><a href="{% url 'post-detail' featured_post.pk %}">{{ featured_post.title}}</a></h2>
+             </div>
+         </div>
+     </div>
+     <!-- Trending Bottom -->
+     <div class="trending-bottom">
+         <div class="row">
+            {% for featured_post in featured_posts %}
+             <div class="col-lg-4">
+             <div class="single-bottom mb-35">
+                 <div class="trend-bottom-img mb-30">
+                    <a href="{% url 'post-detail' featured_post.pk %}">
+                     <img src="{{ featured_post.feature_image.url}}" alt="{{featured_post.title}}" width="170px" height="150px"></a>
+                 </div>
+                 <div class="trend-bottom-cap">
+                     <span class="color1">{{featured_post.category.name}}</span>
+                     <h4><a href="{% url 'post-detail' featured_post.pk %}">{{ featured_post.title| truncatechars:26}}</a></h4>
+                 </div>
+             </div>
+             </div>
+             {% endfor %}
+         </div>
+     </div>
+</div>

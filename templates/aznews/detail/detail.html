@@ -1,0 +1,29 @@
+{% extends "aznews/base.html" %}
+{% load static %}
+{% block content %}
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section-padding">
+<div class="container">
+<div class="row">
+<div class="col-lg-8 posts-list">
+     {% include "aznews/detail/left/post_detail.html" %}
+     {% include "aznews/detail/left/post_nav.html" %}
+     {% include "aznews/detail/left/author.html" %}
+     {% include "aznews/detail/left/comment_form.html" %}
+     {% include "aznews/detail/left/comment_list.html" %}
+</div>
+<div class="col-lg-4">
+     <div class="blog_right_sidebar">
+          {% include "aznews/list/right/search_form.html" %}
+          {% include "aznews/list/right/category.html" %}
+          {% include "aznews/list/right/popular_posts.html" %}
+          {% include "aznews/list/right/tags.html" %}
+          {% include "aznews/list/right/newsletter.html" %}
+          
+     </div>
+</div>
+</div>
+</div>
+</section>
+<!--================ Blog Area end =================-->
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% load static %}
+<aside class="single_sidebar_widget popular_post_widget">
+     <h3 class="widget_title">Recent Post</h3>
+     {% for trending_post in trending_posts %}
+     <div class="media post_item">
+          <a href="{% url 'post-detail' trending_post.pk %}"><img src="{{trending_post.feature_image.url}}" alt="{{trending_post.title}}" width="200px" height="100px"></a>
+          <div class="media-body">
+               <a href="{% url 'post-detail' trending_post.pk %}">
+                    <h3>{{trending_post.title |truncatechars:30}}<br><i class="fa fa-calendar-alt">{{trending_post.published_at|date:" D, j M Y"}}</i></h3>
+               </a>
+          </div>
+     </div>
+     {% endfor %}
+</aside>

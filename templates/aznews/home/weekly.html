@@ -1,0 +1,35 @@
+{% load static %}
+<!--   Weekly-News start -->
+<div class="weekly-news-area pt-50">
+    <div class="container">
+        <div class="weekly-wrapper">
+            <!-- section Tittle -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-tittle mb-30">
+                        <h3>Weekly Top News</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="weekly-news-active dot-style d-flex dot-style">
+                        {% for weekly_top_post in weekly_top_posts %}
+                        <div class="weekly-single">
+                            <div class="weekly-img">
+                                <img src="{{ weekly_top_post.feature_image.url }}" alt="{{weekly_top_post.title}}"
+                                    height="240px">
+                            </div>
+                            <div class="weekly-caption">
+                                <span class="color1">{{weekly_top_post}}</span>
+                                <h4><a href="{% url 'post-detail' weekly_top_post.pk %}">{{weekly_top_post.title}}</a></h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

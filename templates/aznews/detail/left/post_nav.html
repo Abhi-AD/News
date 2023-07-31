@@ -1,0 +1,61 @@
+{% load static %}
+<div class="navigation-top">
+     <div class="d-sm-flex justify-content-between text-center">
+     <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> Lily and 4
+          people like this</p>
+     <div class="col-sm-4 text-center my-2 my-sm-0">
+          <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+     </div>
+     <ul class="social-icons">
+          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+          <li><a href="#"><i class="fab fa-behance"></i></a></li>
+     </ul>
+     </div>
+     <div class="navigation-area">
+     <div class="row">
+          <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+               {% if previous_post %}
+               <div class="thumb">
+                    <a href="{% url 'post-detail' previous_post.pk %}">
+                         <img class="img-fluid" src="{{ previous_post.feature_image.url}}" alt="{{previous_post.title}}"height="80px" width="80px">
+                    </a>
+               </div>
+               <div class="arrow">
+                    <a href="{% url 'post-detail' previous_post.pk %}">
+                         <span class="lnr text-white ti-arrow-left"></span>
+                    </a>
+               </div>
+               <div class="detials">
+                    <p>Prev Post</p>
+                    <a href="{% url 'post-detail' previous_post.pk %}">
+                         <h4>{{previous_post.title|truncatechars:20}}</h4>
+                    </a>
+               </div>
+               {% endif %}
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+               {% if next_post %}
+               <div class="detials">
+                    <p>Next Post</p>
+                    <a href="{% url 'post-detail' next_post.pk %}">
+                         <h4>{{next_post.title|truncatechars:20}}</h4>
+                    </a>
+               </div>
+               <div class="arrow">
+                    <a href="{% url 'post-detail' next_post.pk %}">
+                         <span class="lnr text-white ti-arrow-right"></span>
+                    </a>
+               </div>
+               <div class="thumb">
+                    <a href="{% url 'post-detail' next_post.pk %}">
+                         <img class="img-fluid" src="{{ next_post.feature_image.url}}" alt="{{next_post.title}}" height="80px" width="80px">
+                    </a>
+               </div>
+               {% endif %}
+          </div>
+     </div>
+     </div>
+</div>

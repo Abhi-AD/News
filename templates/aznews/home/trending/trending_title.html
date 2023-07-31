@@ -1,0 +1,16 @@
+{% load static %}
+<!-- Trending Tittle -->
+<div class="row">
+     <div class="col-lg-12">
+       <div class="trending-tittle">
+         <strong>Trending now</strong>
+         <div class="trending-animated">
+           <ul id="js-news" class="js-hidden">
+             {% for trending_post in trending_posts %}
+               <li class="news-item">{{ trending_post.title }}</li>
+             {% endfor %}
+           </ul>
+         </div>
+       </div>
+     </div>
+   </div>
