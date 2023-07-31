@@ -31,9 +31,10 @@ This project is an extended version of [A Basic Django Blog App](https://github.
   pip install django
 ```
 
-  4. Install django
+  4. Install  Pillow
+
 ```bash
-  pip install django
+  pip install Pillow
 ```
 
   5. Clone the project
