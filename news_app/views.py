@@ -1,5 +1,6 @@
 from typing import Any, Dict
 from django.db import models
+from news_app import views
 from django.shortcuts import render, redirect
 
 # from django.test import tag
@@ -9,10 +10,11 @@ from datetime import timedelta
 from django.utils import timezone
 
 # from django.views import View
-from .forms import ContactForm
+from news_app.forms import ContactForm, CommentForm
 from django.contrib import messages
 from django.core.paginator import PageNotAnInteger, Paginator
 from django.db.models import Q
+
 
 # Create your views here.
 class HomeView(ListView):
@@ -143,6 +145,22 @@ class PostByTagView(ListView):
             published_at__isnull=False, status="active", tag__id=self.kwargs["tag_id"]
         ).order_by("-published_at")
         return query
+
+
+class CommentView(View):
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        post_id = request.POST["post"]
+        if form.is_valid():
+            form.save()
+            return redirect("post-detail", post_id)
+
+        post = Post.objects.get(pk=post_id)
+        return render(
+            request,
+            "aznews/detail/detail.html",
+            {"post": post, "form": form},
+        )
 
 
 class PostSearchView(View):

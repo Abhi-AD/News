@@ -57,6 +57,19 @@ class UserProfile(models.Model):
      address = models.CharField(max_length=255)
      biography = models.TextField()
      
+     def __str__(self):
+          return self.user
+     
+class Comment(TimesStampModel):
+     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+     comment = models.TextField()
+     name = models.CharField(max_length=255)
+     email = models.EmailField()
+     
+     def __str__(self):
+          return f"{self.email} | {self.comment[:70]}"
+     
+     
      
 class Newsletter(TimesStampModel):
      email = models.EmailField()
