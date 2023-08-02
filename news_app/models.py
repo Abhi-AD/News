@@ -57,3 +57,9 @@ class UserProfile(models.Model):
      address = models.CharField(max_length=255)
      biography = models.TextField()
      
+     
+class Newsletter(TimesStampModel):
+     email = models.EmailField()
+     
+     def __str__(self):
+          return f"{self.email}"

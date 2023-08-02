@@ -1,11 +1,12 @@
 {% load static %}
 <aside class="single_sidebar_widget search_widget">
-     <form action="#">
+     <form action="{% url 'post-search' %}" method="get">
           <div class="form-group">
                <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder='Search Keyword'
                          onfocus="this.placeholder = ''"
-                         onblur="this.placeholder = 'Search Keyword'">
+                         name="query"
+                         onblur="this.placeholder = 'Search Keyword'" value="{{query}}">
                     <div class="input-group-append">
                          <button class="btns" type="button"><i class="ti-search"></i></button>
                     </div>

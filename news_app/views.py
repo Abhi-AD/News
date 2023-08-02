@@ -11,7 +11,8 @@ from django.utils import timezone
 # from django.views import View
 from .forms import ContactForm
 from django.contrib import messages
-
+from django.core.paginator import PageNotAnInteger, Paginator
+from django.db.models import Q
 
 # Create your views here.
 class HomeView(ListView):
@@ -24,14 +25,24 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["featured_post"] = Post.objects.filter(published_at__isnull=False, status="active").order_by("-published_at", "views_count").first()
-        context["featured_posts"] = Post.objects.filter(published_at__isnull=False, status="active").order_by("-published_at", "views_count")[1:4]
+        context["featured_post"] = (
+            Post.objects.filter(published_at__isnull=False, status="active")
+            .order_by("-published_at", "views_count")
+            .first()
+        )
+        context["featured_posts"] = Post.objects.filter(
+            published_at__isnull=False, status="active"
+        ).order_by("-published_at", "views_count")[1:4]
         one_week_ago = timezone.now() - timedelta(days=7)
-        context["weekly_top_posts"] = Post.objects.filter(published_at__isnull=False, status="active", published_at__gte=one_week_ago).order_by("-published_at", "-views_count")[:7]
-        context["recent_posts"] = Post.objects.filter(published_at__isnull=False, status="active").order_by("-published_at")[:7]
+        context["weekly_top_posts"] = Post.objects.filter(
+            published_at__isnull=False, status="active", published_at__gte=one_week_ago
+        ).order_by("-published_at", "-views_count")[:7]
+        context["recent_posts"] = Post.objects.filter(
+            published_at__isnull=False, status="active"
+        ).order_by("-published_at")[:7]
         return context
-    
-      
+
+
 class AboutView(TemplateView):
     template_name = "aznews/about.html"
 
@@ -64,7 +75,6 @@ class PostListView(ListView):
     template_name = "aznews/list/list.html"
     context_object_name = "posts"
     paginate_by = 1
-
 
     def get_queryset(self):
         return Post.objects.filter(
@@ -133,3 +143,32 @@ class PostByTagView(ListView):
             published_at__isnull=False, status="active", tag__id=self.kwargs["tag_id"]
         ).order_by("-published_at")
         return query
+
+
+class PostSearchView(View):
+    template_name = "aznews/list/search.html"
+
+    def get(self, request, *args, **kwargs):
+        query = request.GET["query"]
+        post_list = Post.objects.filter(
+            (Q(title__icontains=query) | Q(content__icontains=query))
+            & Q(status="active")
+            & Q(published_at__isnull=False)
+        ).order_by("-published_at")
+
+        # paginator start
+        page = request.GET.get("page", 1)
+        paginator_by = 1
+        paginator = Paginator(post_list, paginator_by)
+        try:
+            posts = paginator.page(page)
+
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+
+        # paginations end'
+        return render(
+            request,
+            self.template_name,
+            {"page_obj": posts, "query": query},
+        )

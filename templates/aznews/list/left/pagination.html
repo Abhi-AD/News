@@ -4,7 +4,7 @@
      <ul class="pagination">
           {% if page_obj.has_previous %}
           <li class="page-item">
-               <a href="?page={{page_obj.previous_page_number}}" class="page-link" aria-label="Previous">
+               <a href="?page={{page_obj.previous_page_number}}" class="page-link pagination_number" aria-label="Previous">
                     <i class="ti-angle-left"></i>
                </a>
           </li>
@@ -12,14 +12,14 @@
 
           {% for i in page_obj.paginator.page_range %}
           <li class="page-item {% if i == page_obj.number %}active{% endif %}">
-               <a href="?page={{i}}" class="page-link">{{i}}</a>
+               <a href="?page={{i}}" class="page-link pagination_number">{{i}}</a>
           </li>
           {% endfor %}
           
 
           {% if page_obj.has_next %}
           <li class="page-item">
-               <a href="?page={{page_obj.next_page_number}}" class="page-link" aria-label="Next">
+               <a href="?page={{page_obj.next_page_number}}" class="page-link pagination_number" aria-label="Next">
                     <i class="ti-angle-right"></i>
                </a>
           </li>

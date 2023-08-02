@@ -1,0 +1,25 @@
+{% load static %}
+{% for post in page_obj %}
+<article class="blog_item">
+     <div class="blog_item_img">
+          <img class="card-img rounded-0" src="{{ post.feature_image.url }}" alt="">
+          <a href="#" class="blog_item_date">
+               <h3>{{post.published_at | date:"j"}}</h3>
+               <p>{{post.published_at | date:"M"}}</p>
+          </a>
+     </div>
+
+     <div class="blog_details">
+          <a class="d-inline-block" href="{% url 'post-detail' post.pk %}">
+               <h2>{{post.title}}</h2>
+          </a>
+          <p>{{ post.content|truncatechars:300}}</p>
+          <ul class="blog-info-link">
+               <li><a href="#"><i class="fa fa-user"></i>{{post.tag.all |join:", "}}</a></li>
+               <li><a href="#"><i class="fa fa-eye"></i>{{post.views_count}}</a></li>
+               <li><a href="#"><i class="fa fa-category"></i>{{post.category.name|title}}</a></li>
+               <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+          </ul>
+     </div>
+</article>
+{% endfor %}
