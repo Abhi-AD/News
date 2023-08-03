@@ -108,6 +108,46 @@
             window.location.replace(new_url);
         })
     </script>
+    <script>
+        $("#newsletter_side_form").submit(function (e) {
+            e.preventDefault()
+            let serializedData = $(this).serialize()
+
+            $.ajax({
+                type:"POST",
+                url:'{% url "newsletter" %}',
+                data: serializedData,
+                success:function(response){
+                    $("#newsletter_side_message").append(
+                        `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ${response.message}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>`
+                    )
+                    setTimeout(function(){
+                        $(".alert").alert('close')
+                    }, 2000)
+                },
+                error:function(response){
+                    $("#newsletter_side_message").append(
+                        `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            ${response.responseJSON.message}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>`
+                    )
+                    setTimeout(function(){
+                        $(".alert").alert('close')
+                    }, 2000)
+                }
+            })
+        })
+
+    </script>
+    
 
 </body>
 

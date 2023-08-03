@@ -22,7 +22,8 @@
                             </div>
                             <div class="weekly-caption">
                                 <span class="color1">{{weekly_top_post}}</span>
-                                <h4><a href="{% url 'post-detail' weekly_top_post.pk %}">{{weekly_top_post.title}}</a></h4>
+                                <h4><a href="{% url 'post-detail' weekly_top_post.pk %}">{{weekly_top_post.title}}</a>
+                                </h4>
                             </div>
                         </div>
                         {% endfor %}

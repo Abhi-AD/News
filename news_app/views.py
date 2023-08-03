@@ -10,10 +10,11 @@ from datetime import timedelta
 from django.utils import timezone
 
 # from django.views import View
-from news_app.forms import ContactForm, CommentForm
+from news_app.forms import ContactForm, CommentForm,NewsletterForm
 from django.contrib import messages
 from django.core.paginator import PageNotAnInteger, Paginator
 from django.db.models import Q
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -190,3 +191,18 @@ class PostSearchView(View):
             self.template_name,
             {"page_obj": posts, "query": query},
         )
+
+
+
+class NewlettersView(View):
+    def post(self, request):
+        is_ajax = request.headers.get('x-requested-with')
+        if is_ajax == 'XMLHttpRequest':
+            form = NewsletterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({"sucess":True, "message":"Sucessfully subscribed to the news letters.",},status=200,)
+            else:
+                return JsonResponse({"sucess":False, "message":"cannot subscribed to the news letters.",},status=404,)
+        else:
+            return JsonResponse({"sucess":False, "message":"SUcessfully subscribed to the news letters.",},status=400,)
