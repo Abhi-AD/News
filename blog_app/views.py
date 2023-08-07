@@ -119,7 +119,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "news_admin/post_create.html"
     form_class = PostForm
-    success_url = reverse_lazy("news_admin/post-list")
+    success_url = reverse_lazy("news_admin:post-list")
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -144,7 +144,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = "news_admin/post_create.html"
     form_class = PostForm
-    success_url = reverse_lazy("post-list")
+    success_url = reverse_lazy("news_admin:post-list")
 
     def get_success_url(self):
         post = self.get_object()
@@ -159,7 +159,7 @@ class PostUpdateView(LoginRequiredMixin, View):
     def get(self, request, pk):
         post = Post.objects.get(pk=pk)
         form = PostForm(instance=post)
-        return render(request, "news_admin/post_create.html", {"form": form})
+        return render(request, "news_admin:post_create.html", {"form": form})
 
     def post(self, request, pk):
         post = Post.objects.get(pk=pk)

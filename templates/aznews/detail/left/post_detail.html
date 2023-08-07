@@ -10,6 +10,6 @@
           <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
           <li><a href="#"><i class="fa fa-eye"></i>{{post.views_count}}</a></li>
      </ul>
-    {{ post.content|linebreaksbr}}
+    {{ post.content|safe}}
      </div>
 </div>

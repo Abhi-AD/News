@@ -1,4 +1,5 @@
 from django import forms
+from django_summernote.widgets import SummernoteWidget
 from news_app.models import Post
 
 class PostForm(forms.ModelForm):
@@ -12,6 +13,7 @@ class PostForm(forms.ModelForm):
                          "placeholder":"Enter the title of post",
                     }
                ),
+               "content":SummernoteWidget(),
                "status": forms.Select(attrs={
                     "class": "form-control"
                }),

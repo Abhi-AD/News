@@ -7,7 +7,8 @@
                <div class="date btn btn-secondary text-info">{{post.published_at}}</div>
                <h1><a href="{% url 'news_admin:post-detail' post.pk %}" class="text-dark">{{post.title}}</a></h1>
                <div class="date author"><h1 class="text-info">@{{post.author.username}}</h1></div>
-               <p class="text-secondary">{{post.content | truncatechars:345}} <a href="{% url 'news_admin:post-detail' post.pk %}" class="btn btn-info text-light">View More....</a></p>
+               <img src="{{post.feature_image.url}}" alt="{{post.title}}" height="500px" width="500px">
+               <p class="text-secondary">{{post.content |truncatechars:345}} <a href="{% url 'news_admin:post-detail' post.pk %}" class="btn btn-info text-light">View More....</a></p>
           </div>
           {% endfor %}
      </div>

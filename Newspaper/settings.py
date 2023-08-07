@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third party libtary
+    'django_summernote', 
+    # custom app
     'news_app',
     'blog_app',
 ]

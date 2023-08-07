@@ -8,6 +8,7 @@
                     <a href="{% url 'news_admin:draft-publish' post.pk %}" class="btn btn-success">Publish</a>
                </div>
                <h1><a href="" class="text-dark">{{post.title}}</a></h1>
+               <img src="{{post.feature_image.url}}" alt="{{post.title}}" height="500px" width="500px">
                <div class="mt-2">
                     <a href="{% url 'news_admin:post-update' post.pk %}" class="btn btn-warning">Edit</a>
                     <a href="{% url 'news_admin:post-delete' post.pk %}" class="btn btn-danger">Delete</a>
