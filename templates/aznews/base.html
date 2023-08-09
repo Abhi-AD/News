@@ -88,7 +88,6 @@
     <script src="{% static 'aznews/assets/js/jquery.form.js' %}"></script>
     <script src="{% static 'aznews/assets/js/jquery.validate.min.js' %}"></script>
     <script src="{% static 'aznews/assets/js/mail-script.js' %}"></script>
-    <script src="{% static 'aznews/assets/js/jquery.ajaxchimp.min.js' %}"></script>
 
     <!-- Jquery Plugins, main Jquery -->
     <script src="{% static 'aznews/assets/js/plugins.js' %}"></script>
@@ -108,16 +107,18 @@
             window.location.replace(new_url);
         })
     </script>
+
+    <!-- newletter Subscribe -->
     <script>
         $("#newsletter_side_form").submit(function (e) {
             e.preventDefault()
             let serializedData = $(this).serialize()
 
             $.ajax({
-                type:"POST",
-                url:'{% url "newsletter" %}',
+                type: "POST",
+                url: '{% url "newsletter" %}',
                 data: serializedData,
-                success:function(response){
+                success: function (response) {
                     $("#newsletter_side_message").append(
                         `<div class="alert alert-success alert-dismissible fade show" role="alert">
                             ${response.message}
@@ -126,11 +127,11 @@
                             </button>
                           </div>`
                     )
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $(".alert").alert('close')
                     }, 2000)
                 },
-                error:function(response){
+                error: function (response) {
                     $("#newsletter_side_message").append(
                         `<div class="alert alert-danger alert-dismissible fade show" role="alert">
                             ${response.responseJSON.message}
@@ -139,7 +140,7 @@
                             </button>
                           </div>`
                     )
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $(".alert").alert('close')
                     }, 2000)
                 }
@@ -147,7 +148,50 @@
         })
 
     </script>
-    
+
+
+
+    <!-- newletter Subscribe in footer -->
+    <script>
+        $("#newsletter_bottom_form").submit(function (e) {
+            e.preventDefault()
+            let serializedData = $(this).serialize()
+
+            $.ajax({
+                type: "POST",
+                url: '{% url "newsletter" %}',
+                data: serializedData,
+                success: function (response) {
+                    $("#newsletter_bottom_message").append(
+                        `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ${response.message}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>`
+                    )
+                    setTimeout(function () {
+                        $(".alert").alert('close')
+                    }, 2000)
+                },
+                error: function (response) {
+                    $("#newsletter_bottom_message").append(
+                        `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            ${response.responseJSON.message}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>`
+                    )
+                    setTimeout(function () {
+                        $(".alert").alert('close')
+                    }, 2000)
+                }
+            })
+        })
+
+    </script>
+
 
 </body>
 
