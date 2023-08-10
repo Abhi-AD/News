@@ -73,19 +73,18 @@ To run tests, run the following command
 ## Running the project locally
 
 Goto [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-- username: admin
-- password: admin
+  run the newspaper website
 
 ### Running Django Administration
 
 Goto [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
-- username: admin
-- password: admin
+- username: news
+- password: news
   
 
 ## Feedback
 
-If you have any feedback, please reach out to us at dangiabhi332@gmail.com
+If you have any feedback, please reach out to us at dangiabhi332@gmail.com 
 
   
 
