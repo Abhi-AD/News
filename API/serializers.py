@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from news_app.models import Tag, Category, Post
+from news_app.models import Tag, Category, Post, Newsletter
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,7 +42,21 @@ class PostSerializer(serializers.ModelSerializer):
             "category",
             "tag",
         ]
+        extra_kwargs = {
+            "author":{"read_only":True},
+            "views_count":{"read_only":True},
+            "published_at":{"read_only":True}
+        }
         
     def validate(self, data):
         data["author"]= self.context["request"].user
         return data
+    
+
+class PostPublishSerializer(serializers.Serializer):
+    post = serializers.IntegerField()
+    
+# class NewsletterSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Newsletter
+#         field = "_all_"
