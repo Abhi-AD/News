@@ -59,16 +59,15 @@ class PostPublishSerializer(serializers.Serializer):
 class NewsletterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Newsletter
-        field = "_all_"
+        fields = "__all__"
         
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        field = "_all_"
-        
+        fields = "__all__"
         
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        field = "_all_"
+        fields = "__all__"
