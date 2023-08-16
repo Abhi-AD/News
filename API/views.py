@@ -107,25 +107,27 @@ class DraftListViewSet(ListAPIView):
 class PostListByCategoryViewSet(ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permissions_classes = [permissions.AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        queryset = super().get_querset()
+        queryset = super().get_queryset()
         queryset = queryset.filter(
-            status="active",
-            published_at__isnull=False,
-            category=self.kwargs["category_id"],
+            status ="active",
+            published_at__isnull =False,
+            category =self.kwargs["category_id"],
         )
         return queryset
+    
+
 
 
 class PostListByTagViewSet(ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permissions_classes = [permissions.AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        queryset = super().get_querset()
+        queryset = super().get_queryset()
         queryset = queryset.filter(
             status="active",
             published_at__isnull=False,
@@ -143,7 +145,7 @@ class PostPublishViewSet(APIView):
         if serializer.is_valid(raise_exception=True):
             data = serializer.data
 
-            # published the post
+            # publish the post
             post = Post.objects.get(pk=data["id"])
             post.published_at = timezone.now()
             post.save()
@@ -155,16 +157,26 @@ class PostPublishViewSet(APIView):
 class NewsletterViewSet(viewsets.ModelViewSet):
     queryset = Newsletter.objects.all()
     serializer_class = NewsletterSerializer
-    permission_classes=[permissions.AllowAny]
+    permission_classes = [permissions.AllowAny]
     
     
     def get_permissions(self):
-        if self.action in ["list","retrieve","destroy"]:
-            return[permissions.IsAuthenticated]
+        if self.action in ["list", "retrieve", "destroy"]:
+            return [permissions.IsAuthenticated()]
         return super().get_permissions()
     
     def update(self, request, *args, **kwargs):
         raise exceptions.MethodNotAllowed(request.method)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -184,7 +196,7 @@ class ContactViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(APIView):
-    permission_classes= [permissions.AllowAny]
+    permission_classes = [permissions.AllowAny]
     
     def get(self, request, post_id, *args, **kwargs):
         comments = Comment.objects.filter(post=post_id).order_by("-created_at")
@@ -197,3 +209,4 @@ class CommentViewSet(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+     
