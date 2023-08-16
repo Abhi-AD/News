@@ -154,6 +154,7 @@ class PostPublishViewSet(APIView):
             return Response(serialized_data, status=status.HTTP_200_OK)
 
 
+
 class NewsletterViewSet(viewsets.ModelViewSet):
     queryset = Newsletter.objects.all()
     serializer_class = NewsletterSerializer
