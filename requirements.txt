@@ -1,3 +1,7 @@
-Django==4.2.3
-Pillow==10.0.0
-django-summernote==0.8.20.0
+pip freeze:
+     Django==4.2.3
+     Pillow==10.0.0
+     django-summernote==0.8.20.0
+     djangorestframework==3.14.0
+     weasyprint==59.0
+     reportlab==4.0.4

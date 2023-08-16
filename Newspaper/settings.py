@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'news_app',
     'blog_app',
     'API',
+    'report',
 ]
 
 MIDDLEWARE = [

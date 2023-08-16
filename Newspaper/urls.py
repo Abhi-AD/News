@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
     path('news_admin/', include("blog_app.urls")),
+    path('report/', include("report.urls")),
     path("api/v1/",include("API.urls")),
     path("", include("news_app.urls")),
     path("account/login/", views.LoginView.as_view(), name="login"),

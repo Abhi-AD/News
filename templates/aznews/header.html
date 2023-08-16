@@ -18,6 +18,9 @@
                             <div class="header-info-right">
                                 <ul class="header-social">
                                     {% if user.is_authenticated %}
+                                    <li><a href="{% url 'report:users' %}" title="Dowmload Users"><i class="fas fa-download"></i></a></li>
+                                    <li><a href="{% url 'report:post-pdf-download' %}" title="Dowmload PDF"><i class="fas fa-arrow-alt-circle-down"></i></a></li>
+                                    <li><a href="{% url 'report:post-pdf-view' %}" title="View PDF"><i class="far fa-file-pdf"></i></a></li>
                                     <li><a href="https://twitter.com/aznews_tv"><i class="fab fa-twitter"></i></a></li>
                                     <li><a href="https://www.instagram.com/aznews.ant/"><i class="fab fa-instagram"></i></a></li>
                                     <li> <a href="#"><i class="fab fa-pinterest-p"></i></a></li>
