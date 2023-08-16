@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework.generics import ListAPIView
+from rest_framework.views import APIView
+from django.utils import timezone
+from rest_framework.response import Response
+from rest_framework import viewsets,status,exceptions,permissions
+from news_app.models import Tag, Category, Post, Newsletter,Contact,Comment
 from API.serializers import (
     UserSerializer,
     GroupSerializer,
@@ -8,14 +12,11 @@ from API.serializers import (
     CategorySerializer,
     PostSerializer,
     PostPublishSerializer,
-    # NewsletterSerializer,
+    NewsletterSerializer,
+    ContactSerializer,
+    CommentSerializer
 )
-from news_app.models import Tag, Category, Post, Newsletter
-from rest_framework.generics import ListAPIView
-from rest_framework.views import APIView
-from django.utils import timezone
-from rest_framework.response import Response
-from rest_framework import status
+
 
 
 
@@ -57,7 +58,7 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows Tag to be viewed or edited.
+    API endpoint that allows Categories to be viewed or edited.
     """
 
     queryset = Category.objects.all()
@@ -143,7 +144,7 @@ class PostPublishViewSet(APIView):
             data = serializer.data
 
             # published the post
-            post = Post.objects.get(pk=data["post"])
+            post = Post.objects.get(pk=data["id"])
             post.published_at = timezone.now()
             post.save()
 
@@ -151,16 +152,48 @@ class PostPublishViewSet(APIView):
             return Response(serialized_data, status=status.HTTP_200_OK)
 
 
-# class NewsletterViewSet(viewsets.ModelViewSet):
-#     queryset = Newsletter.objects.all()
-#     serializer_class = NewsletterSerializer
-#     permission_classes=[permissions.AllowAny]
+class NewsletterViewSet(viewsets.ModelViewSet):
+    queryset = Newsletter.objects.all()
+    serializer_class = NewsletterSerializer
+    permission_classes=[permissions.AllowAny]
     
     
-#     def get_permissions(self):
-#         if self.action in ["list","retrieve"]:
-#             return[permissions.IsAuthenticated]
-#         return super().get_permissions()
+    def get_permissions(self):
+        if self.action in ["list","retrieve","destroy"]:
+            return[permissions.IsAuthenticated]
+        return super().get_permissions()
     
-#     def update(self, request, *args, **kwargs):
-#         raise Exception.MethodNotAllowed(request.method)
+    def update(self, request, *args, **kwargs):
+        raise exceptions.MethodNotAllowed(request.method)
+
+
+
+class ContactViewSet(viewsets.ModelViewSet):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes=[permissions.AllowAny]
+    
+    
+    def get_permissions(self):
+        if self.action in ["list","retrieve","destroy"]:
+            return[permissions.IsAuthenticated()]
+        return super().get_permissions()
+    
+    def update(self, request, *args, **kwargs):
+        raise exceptions.MethodNotAllowed(request.method)
+
+
+class CommentViewSet(APIView):
+    permission_classes= [permissions.AllowAny]
+    
+    def get(self, request, post_id, *args, **kwargs):
+        comments = Comment.objects.filter(post=post_id).order_by("-created_at")
+        serialized_data = CommentSerializer(comments, many=True).data
+        return Response(serialized_data, status=status.HTTP_200_OK)
+    
+    def post(self, request, post_id, *args, **kwargs):
+        request.data.update({"post": post_id})
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
