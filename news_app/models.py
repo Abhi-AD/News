@@ -34,7 +34,7 @@ class Post(models.Model):
      author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
      status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="active")
      views_count = models.PositiveBigIntegerField(default=0)
-     published_at = models.DateField(null=True, blank=True)
+     published_at = models.DateTimeField(null=True, blank=True)
      category = models.ForeignKey(Category, on_delete=models.CASCADE)
      tag = models.ManyToManyField(Tag)
      
