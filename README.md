@@ -1,6 +1,6 @@
 # News
 News websites provide news in a format distinct from traditional media like television, print, or radio. They often offer a wide range of content, including entertainment, games, and interesting non-current news. These platforms cater to diverse audiences seeking informative and engaging content online.
-This project is an extended version of [A Basic Django Blog App](https://github.com/Abhi-AD/News) but with basic functionality. The project made on Django framework.
+This project is an extended version of [A Basic Django Blog App](https://github.com/Abhi-AD/News) but with basic functionality. The project made on Django Framework.
 
 
 
